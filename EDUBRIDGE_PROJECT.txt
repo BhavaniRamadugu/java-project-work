@@ -1,0 +1,515 @@
+package com.one;
+/*
+Student Alt + insert + FN
+ */
+public class Student {
+    //Student number
+    private String sid;
+    //Name
+    private String name;
+    //Age
+    private String age;
+    //Place of residence
+    private String address;
+
+    public Student() {
+    }
+
+    public Student(String sid, String name, String age, String address) {
+        this.sid = sid;
+        this.name = name;
+        this.age = age;
+        this.address = address;
+    }
+
+    public String getSid() {
+        return sid;
+    }
+
+    public void setSid(String sid) {
+        this.sid = sid;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+}
+
+ ArrayList<Student>array=new ArrayList<Student>();
+ 
+ while (true) {
+            //1. Write the main interface with the output statement
+            System. out. Println ("--------- welcome to the student management system ------");
+            System. out. Println ("1. Add students");
+            System. out. Println ("2. Delete students");
+            System. out. Println ("3. Modify students");
+            System. out. Println ("4. View all students");
+            System. out. Println ("5. Exit");
+            System. out. Println ("please enter your choice");
+			
+			// 2. Using scanner to realize keyboard input data
+            Scanner sc = new Scanner(System.in);
+            String line = sc.nextLine();
+
+            //3. Complete the selection of operation with switch statement
+            switch (line) {
+                case "1":
+//                    System. out. Println ("add student");
+                    addStudent(array);
+                    break;
+                case "2":
+//                    System. out. Println ("delete student");
+                    deleteStudent(array);
+                    break;
+                case "3":
+//                    System. out. Println ("modify student");
+                    updateStudet(array);
+                    break;
+                case "4":
+//                    System. out. Println ("view all students");
+                    FindallStudent(array);
+                    break;
+                case "5":
+                    System. out. Println ("thank you for using");
+//                    break;
+                    System. exit(0); // JVM exit
+					
+					public static void addStudent(ArrayList<Student> array) {
+        //Enter the data required by the student object on the keyboard, display the prompt information, and prompt what information to enter
+        Scanner sc=new Scanner(System.in);
+
+        //In order for Sid to be accessed outside the while loop, we define it outside the loop
+        String sid;
+        //In order to get the program back here, we implement it with a loop
+        while (true) {
+            System. out. Println ("please enter student ID");
+             sid=sc.nextLine();
+
+            boolean flag=isUsed(array,sid);
+            if (flag) {
+                System. out. Println ("the student number you entered has been occupied, please re-enter");
+            } else {
+                break;
+            }
+        }
+
+
+
+        System. out. Println ("please enter student name");
+        String name=sc.nextLine();
+        System. out. Println ("please enter student age");
+        String age=sc.nextLine();
+        System. out. Println ("please enter the student's residence");
+        String address=sc.nextLine();
+        //Create a student object and assign the data entered by the keyboard to the member variable of the student object
+        Student s=new Student();
+        s.setSid(sid);
+        s.setName(name);
+        s.setAge(age);
+        s.setAddress(address);
+        //Add the student object to the collection
+        array.add(s);
+        //Give a prompt of successful addition
+        System. out. Println ("student added successfully");
+    }
+	
+	//Define a method to judge whether the student number is used
+    public static boolean isUsed(ArrayList<Student> array,String sid) {
+            //If it is the same as a student number in the set, return true, otherwise false
+          boolean flag=false;
+          for (int i=0;i< array.size();i++) {
+              Student s=array.get(i);
+              if (s.getSid().equals(sid)) {
+                  flag=true;
+                  break;
+              }
+          }
+          return flag;
+    }
+	
+	 public  static void deleteStudent(ArrayList<Student> array) {
+        //Enter the student number to be deleted on the keyboard and display the prompt information
+        Scanner sc=new Scanner(System.in);
+
+        System. out. Println ("please enter the student ID of the student you want to delete");
+        String sid=sc.nextLine();
+
+        //Judge whether the student number exists before deleting / modifying the student operation
+        //Display student information if present
+        //If it does not exist, delete it
+       int index=-1;
+       for (int i=0;i< array.size();i++) {
+           Student s=array.get(i);
+           if (s.getSid().equals(sid)) {
+               index=i;
+               break;
+           }
+       }
+       if (index==-1) {
+           System. out. Println ("the information does not exist, please re-enter");
+       } else {
+           array.remove(index);
+           //Give a prompt to delete students
+           System. out. Println ("delete student succeeded");
+       }
+    }
+(3) Modify student’s method
+
+     
+
+//Define a method for modifying students
+    public  static void updateStudet(ArrayList<Student> array) {
+        Scanner sc=new Scanner(System.in);
+        System. out. Println ("please enter the student number of the student you want to modify:");
+        String sid= sc.nextLine();
+        //Enter the student information to be modified with the keyboard
+        System. out. Println ("please enter new student name:");
+        String name= sc.nextLine();
+        System. out. Println ("please enter the new age of the student:");
+        String age= sc.nextLine();
+        System. out. Println ("please enter the student's new residence:");
+        String address= sc.nextLine();
+
+        //Create student object
+        Student s=new Student();
+        s.setSid(sid);
+        s.setName(name);
+        s.setAge(age);
+        s.setAddress(address);
+
+        //Traverse the set and modify the corresponding student information
+        for (int i=0;i< array.size();i++) {
+            Student student=array.get(i);
+            if (student.getSid().equals(sid)) {
+                array.set(i,s);
+                break;
+            }
+        }
+        System. out. Println ("student modification succeeded");
+    }
+Well, even if our student management system is finished!!
+
+The complete code is as follows
+
+package com.one;
+
+//Student management system
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+/*
+  Main page coding
+  1. Write the main interface with the output statement
+  2. Use scanner to enter data with keyboard
+  3. Complete the selection of operation with switch statement
+  4. Use the cycle to return to the main interface again
+ */
+public class StudentManager {
+    public static void main(String[] args) {
+        //Create a student object to store student data
+        ArrayList<Student>array=new ArrayList<Student>();
+        //4. Use the cycle to return to the main interface again
+        while (true) {
+            //1. Write the main interface with the output statement
+            System. out. Println ("--------- welcome to the student management system ------");
+            System. out. Println ("1. Add students");
+            System. out. Println ("2. Delete students");
+            System. out. Println ("3. Modify students");
+            System. out. Println ("4. View all students");
+            System. out. Println ("5. Exit");
+            System. out. Println ("please enter your choice");
+
+            // 2. Use scanner to enter data with keyboard
+            Scanner sc = new Scanner(System.in);
+            String line = sc.nextLine();
+
+            //3. Complete the selection of operation with switch statement
+            switch (line) {
+                case "1":
+//                    System. out. Println ("add student");
+                    addStudent(array);
+                    break;
+                case "2":
+//                    System. out. Println ("delete student");
+                    deleteStudent(array);
+                    break;
+                case "3":
+//                    System. out. Println ("modify student");
+                    updateStudet(array);
+                    break;
+                case "4":
+//                    System. out. Println ("view all students");
+                    FindallStudent(array);
+                    break;
+                case "5":
+                    System. out. Println ("thank you for using");
+//                    break;
+                    System. exit(0); // JVM exit
+
+            }
+        }
+    }
+
+    //Define a method for adding student information
+    public static void addStudent(ArrayList<Student> array) {
+        //Enter the data required by the student object on the keyboard, display the prompt information, and prompt what information to enter
+        Scanner sc=new Scanner(System.in);
+
+        //In order for Sid to be accessed outside the while loop, we define it outside the loop
+        String sid;
+        //In order to get the program back here, we implement it with a loop
+        while (true) {
+            System. out. Println ("please enter student ID");
+             sid=sc.nextLine();
+
+            boolean flag=isUsed(array,sid);
+            if (flag) {
+                System. out. Println ("the student number you entered has been occupied, please re-enter");
+            } else {
+                break;
+            }
+        }
+
+
+
+        System. out. Println ("please enter student name");
+        String name=sc.nextLine();
+        System. out. Println ("please enter student age");
+        String age=sc.nextLine();
+        System. out. Println ("please enter the student's residence");
+        String address=sc.nextLine();
+        //Create a student object and assign the data entered by the keyboard to the member variable of the student object
+        Student s=new Student();
+        s.setSid(sid);
+        s.setName(name);
+        s.setAge(age);
+        s.setAddress(address);
+        //Add the student object to the collection
+        array.add(s);
+        //Give a prompt of successful addition
+        System. out. Println ("student added successfully");
+    }
+
+    //Define a method to judge whether the student number is used
+    public static boolean isUsed(ArrayList<Student> array,String sid) {
+            //If it is the same as a student number in the set, return true, otherwise false
+          boolean flag=false;
+          for (int i=0;i< array.size();i++) {
+              Student s=array.get(i);
+              if (s.getSid().equals(sid)) {
+                  flag=true;
+                  break;
+              }
+          }
+          return flag;
+    }
+    //Define a method for viewing all student information
+    public static void FindallStudent(ArrayList<Student> array) {
+        //Judge whether there is data in the set. If no prompt information is displayed
+        if (array.size()==0){
+            System. out. Println ("no information, please add information first in the query");
+            //In order to prevent the program from executing further, return is given;
+            return;
+        }
+        //Display header information
+        System. out. Println ("student number \ t \ t \ tname \ t \ t age \ t \ t place of residence");
+        //Take out the data in the set, display the student information in the corresponding format, and display the supplementary "age" in the age display
+        for (int i=0;i< array.size();i++) {
+            Student s= array.get(i);
+            System. out. Println (s.getsid() + "\ T" + s.getname() + "\ T" + s.getage() + "year \ t \ T" + s.getaddress());
+        }
+    }
+
+    //Define a method for deleting students
+    public  static void deleteStudent(ArrayList<Student> array) {
+        //Enter the student number to be deleted on the keyboard and display the prompt information
+        Scanner sc=new Scanner(System.in);
+
+        System. out. Println ("please enter the student ID of the student you want to delete");
+        String sid=sc.nextLine();
+
+        //Judge whether the student number exists before deleting / modifying the student operation
+        //Display student information if present
+        //If it does not exist, delete it
+       int index=-1;
+       for (int i=0;i< array.size();i++) {
+           Student s=array.get(i);
+           if (s.getSid().equals(sid)) {
+               index=i;
+               break;
+           }
+       }
+       if (index==-1) {
+           System. out. Println ("the information does not exist, please re-enter");
+       } else {
+           array.remove(index);
+           //Give a prompt to delete students
+           System. out. Println ("delete student succeeded");
+       }
+    }
+
+    //Define a method for modifying students
+    public  static void updateStudet(ArrayList<Student> array) {
+        Scanner sc=new Scanner(System.in);
+        System. out. Println ("please enter the student number of the student you want to modify:");
+        String sid= sc.nextLine();
+        //Enter the student information to be modified with the keyboard
+        System. out. Println ("please enter new student name:");
+        String name= sc.nextLine();
+        System. out. Println ("please enter the new age of the student:");
+        String age= sc.nextLine();
+        System. out. Println ("please enter the student's new residence:");
+        String address= sc.nextLine();
+
+        //Create student object
+        Student s=new Student();
+        s.setSid(sid);
+        s.setName(name);
+        s.setAge(age);
+        s.setAddress(address);
+
+        //Traverse the set and modify the corresponding student information
+        for (int i=0;i< array.size();i++) {
+            Student student=array.get(i);
+            if (student.getSid().equals(sid)) {
+                array.set(i,s);
+                break;
+            }
+        }
+        System. out. Println ("student modification succeeded");
+    }
+
+
+}
+package com.java.sms;
+
+/**
+ * This class is responsible for keeping the
+ * track of students fees, name ,grade & fees
+ * paid.
+ *
+ */
+public class Student {
+
+    private int id;
+    private String name;
+    private int grade;
+    private int feesPaid;
+    private int feesTotal;
+
+    /**
+     * To create a new student by initializing.
+     * Fees for every student is $30,000.
+     * Fees paid initially is 0.
+     * @param id id for the student: unique.
+     * @param name name of the student.
+     * @param grade grade of the student.
+     */
+    public Student(int id, String name,int grade){
+        this.feesPaid=0;
+        this.feesTotal=30000;
+        this.id=id;
+        this.name=name;
+        this.grade=grade;
+
+    }
+
+    //Not going to alter student's name, student's id.
+
+
+    /**
+     * Used to update the student's grade.
+     * @param grade new grade of the student.
+     */
+    public void setGrade(int grade){
+        this.grade=grade;
+    }
+
+
+    /**
+     * Keep adding the fees to feesPaid Field.
+     * Add the fees to the fees paid.
+     * The school is going receive the funds.
+     *
+     * @param fees the fees that the student pays.
+     */
+    public void payFees(int fees){
+        feesPaid+=fees;
+        School.updateTotalMoneyEarned(feesPaid);
+    }
+
+    /**
+     *
+     * @return id of the student.
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     *
+     * @return name of the student.
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     *
+     * @return the grade of the student.
+     */
+    public int getGrade() {
+        return grade;
+    }
+
+    /**
+     *
+     * @return fees paid by the student.
+     */
+    public int getFeesPaid() {
+        return feesPaid;
+    }
+
+    /**
+     *
+     * @return the total fees of the student.
+     */
+    public int getFeesTotal() {
+        return feesTotal;
+    }
+
+    /**
+     *
+     * @return the remaining fees.
+     */
+    public int getRemainingFees(){
+        return feesTotal-feesPaid;
+    }
+
+    @Override
+    public String toString() {
+        return "Student's name :"+name+
+                " Total fees paid so far $"+ feesPaid;
+    }
+}
